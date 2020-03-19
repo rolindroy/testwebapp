@@ -278,14 +278,15 @@ Resources:
           systemctl start httpd
           groupadd www
           usermod -a -G www ec2-user
-
-          chown -R root:www /var/www
-          chmod 2775 /var/www
-          find /var/www -type d -exec chmod 2775 {} +
-          find /var/www -type f -exec chmod 0664 {} +
+          
           host_name=$(hostname)
 
           git clone https://github.com/rolindroy/testwebapp.git 
           mv testwebapp/* /var/www/html/
           sed -i "s/HOSTNAME/$host_name/g" /var/www/html/index.html
+          
+          chown -R root:www /var/www
+          chmod 2775 /var/www
+          find /var/www -type d -exec chmod 2775 {} +
+          find /var/www -type f -exec chmod 0664 {} +
           
